@@ -6,6 +6,8 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "people")
 public class Person {
 
     @Id
@@ -21,7 +23,7 @@ public class Person {
     public Person() {
     }
 
-    public Person(String name, List<Folder> folders) {
+    public Person(String name) {
         this.name = name;
         this.folders = new ArrayList<>();
     }
@@ -48,5 +50,9 @@ public class Person {
 
     public void setFolders(List<Folder> folders) {
         this.folders = folders;
+    }
+
+    public void addFolder(Folder folder) {
+        this.folders.add(folder);
     }
 }

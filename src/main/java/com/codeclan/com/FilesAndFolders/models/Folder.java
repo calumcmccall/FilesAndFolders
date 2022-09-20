@@ -1,5 +1,6 @@
 package com.codeclan.com.FilesAndFolders.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -19,13 +20,14 @@ public class Folder {
     @OneToMany(mappedBy = "folder")
     @JsonIgnoreProperties({"folder"})
     private List<File> files;
-    @Column(name = "person")
+    @ManyToOne
+    @JoinColumn(name = "person_id", nullable = false)
     private Person person;
 
     public Folder() {
     }
 
-    public Folder(String title, List<File> files, Person person) {
+    public Folder(String title, Person person) {
         this.title = title;
         this.files = new ArrayList<>();
         this.person = person;
@@ -61,5 +63,9 @@ public class Folder {
 
     public void setPerson(Person person) {
         this.person = person;
+    }
+
+    public void addFile(File file) {
+        this.files.add(file);
     }
 }
